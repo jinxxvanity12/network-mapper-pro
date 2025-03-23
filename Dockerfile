@@ -8,8 +8,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies with fallback to npm install if npm ci fails
-RUN npm ci || npm install
+# Install dependencies with --legacy-peer-deps to handle dependency conflicts
+RUN npm install --legacy-peer-deps
 
 # Copy all files
 COPY . .
