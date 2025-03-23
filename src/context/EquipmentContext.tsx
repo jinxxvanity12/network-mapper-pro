@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Equipment, Connection, EquipmentType, Port, VlanConfig } from '../types/equipment';
+import { Equipment, Connection, EquipmentType, Port, PortStatus, VlanConfig } from '../types/equipment';
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from "sonner";
 
@@ -262,7 +262,7 @@ export const EquipmentProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 (eq.id === newConnection.targetId && port.number === newConnection.targetPort)) {
               return {
                 ...port,
-                status: 'connected',
+                status: 'connected' as PortStatus,
                 connectedToId: eq.id === newConnection.sourceId ? newConnection.targetId : newConnection.sourceId,
                 connectedToPort: eq.id === newConnection.sourceId ? newConnection.targetPort : newConnection.sourcePort,
               };
@@ -307,7 +307,7 @@ export const EquipmentProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                   (eq.id === connectionToDelete.targetId && port.number === connectionToDelete.targetPort)) {
                 return {
                   ...port,
-                  status: 'disconnected',
+                  status: 'disconnected' as PortStatus,
                   connectedToId: undefined,
                   connectedToPort: undefined,
                 };
@@ -334,7 +334,7 @@ export const EquipmentProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return Array.from({ length: count }, (_, i) => ({
       id: uuidv4(),
       number: i + 1,
-      status: 'disconnected',
+      status: 'disconnected' as PortStatus,
       vlans: [{ id: 1, name: 'Default', tagged: false }],
     }));
   };
