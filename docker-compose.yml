@@ -10,3 +10,5 @@ services:
       - "8080:80"
     restart: unless-stopped
     container_name: network-mapper-pro
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
